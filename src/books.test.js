@@ -83,28 +83,45 @@ let setup = async (userModeArg) => {
   });
 };
 
-it("should load private books", async () => {
-  await setup("private");
-  expect(httpGateway.get).toHaveBeenCalledWith(
-    "https://api.logicroom.co/api/olakara@gmail.com/books"
-  );
+describe("visibility cases", () => {
+  it("should load private books as default", async () => {
+    await setup(null);
+    expect(httpGateway.get).toHaveBeenCalledWith(
+      "https://api.logicroom.co/api/olakara@gmail.com/books"
+    );
+    expect(viewModel.length).toBe(3);
+    expect(viewModel[0].name).toBe("Wind in the willows");
+    expect(viewModel[2].name).toBe("The Hobbit");
+  });
 
-  expect(viewModel.length).toBe(3);
-  expect(viewModel[0].name).toBe("Wind in the willows");
-  expect(viewModel[1].name).toBe("I, Robot");
-  expect(viewModel[2].name).toBe("The Hobbit");
+  it("should load private books when user chooses to", async () => {
+    await setup("private");
+    expect(httpGateway.get).toHaveBeenCalledWith(
+      "https://api.logicroom.co/api/olakara@gmail.com/books"
+    );
+
+    expect(viewModel.length).toBe(3);
+    expect(viewModel[0].name).toBe("Wind in the willows");
+    expect(viewModel[1].name).toBe("I, Robot");
+    expect(viewModel[2].name).toBe("The Hobbit");
+  });
+
+  it("should load public books when user chooses to", async () => {
+    await setup("public");
+    expect(httpGateway.get).toHaveBeenCalledWith(
+      "https://api.logicroom.co/api/olakara@gmail.com/allbooks"
+    );
+
+    expect(viewModel.length).toBe(5);
+    expect(viewModel[0].name).toBe("Moby Dick");
+    expect(viewModel[1].name).toBe("The Art of War");
+    expect(viewModel[2].name).toBe("Wind in the willows");
+    expect(viewModel[3].name).toBe("I, Robot");
+    expect(viewModel[4].name).toBe("The Hobbit");
+  });
 });
 
-it("should load public books", async () => {
-  await setup("public");
-  expect(httpGateway.get).toHaveBeenCalledWith(
-    "https://api.logicroom.co/api/olakara@gmail.com/allbooks"
-  );
-
-  expect(viewModel.length).toBe(5);
-  expect(viewModel[0].name).toBe("Moby Dick");
-  expect(viewModel[1].name).toBe("The Art of War");
-  expect(viewModel[2].name).toBe("Wind in the willows");
-  expect(viewModel[3].name).toBe("I, Robot");
-  expect(viewModel[4].name).toBe("The Hobbit");
+describe("sorting cases", () => {
+  it("should sort ascending on name as per option", async () => {});
+  it("should sort descending on name as per option", async () => {});
 });
