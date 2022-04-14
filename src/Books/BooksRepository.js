@@ -10,7 +10,7 @@ class BooksRepository {
     this.programmersModel = new Observable([]);
   }
 
-  getBooks = async callback => {
+  getBooks = async (callback) => {
     this.programmersModel.subscribe(callback);
     if (this.programmersModel.value.length === 0) {
       await this.loadApiData();
@@ -21,16 +21,16 @@ class BooksRepository {
 
   loadApiData = async () => {
     const dto = await httpGateway.get(
-      "https://api.logicroom.co/api/pete@logicroom.co/" + this.mode
+      "https://api.logicroom.co/api/olakara@gmail.com/" + this.mode
     );
-    this.programmersModel.value = dto.result.map(dtoItem => {
+    this.programmersModel.value = dto.result.map((dtoItem) => {
       return dtoItem;
     });
     this.programmersModel.notify();
   };
 
   refreshModelData = () => {
-    this.programmersModel.value = this.programmersModel.value.map(pm => {
+    this.programmersModel.value = this.programmersModel.value.map((pm) => {
       return pm;
     });
     this.programmersModel.notify();
