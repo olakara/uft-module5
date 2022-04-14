@@ -10,7 +10,8 @@ function App() {
 
   React.useEffect(() => {
     async function load() {
-      await booksPresenter.load(viewModel => {
+      booksPresenter.setMode("public");
+      await booksPresenter.load((viewModel) => {
         copyViewModelToStateViewModel(viewModel);
       });
     }
