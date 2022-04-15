@@ -127,11 +127,14 @@ describe("sorting cases", () => {
       viewModel = generatedViewModel;
     });
     expect(viewModel[0].name).toBe("I, Robot");
+    expect(viewModel[4].name).toBe("Wind in the willows");
   });
+
   it("should sort descending on name as per option", async () => {
     await booksPresenter.sortDecending((generatedViewModel) => {
       viewModel = generatedViewModel;
     });
     expect(viewModel[0].name).toBe("Wind in the willows");
+    expect(viewModel[4].name).toBe("I, Robot");
   });
 });
