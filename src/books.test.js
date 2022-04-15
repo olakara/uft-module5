@@ -122,6 +122,16 @@ describe("visibility cases", () => {
 });
 
 describe("sorting cases", () => {
-  it("should sort ascending on name as per option", async () => {});
-  it("should sort descending on name as per option", async () => {});
+  it("should sort ascending on name as per option", async () => {
+    await booksPresenter.sortAscending((generatedViewModel) => {
+      viewModel = generatedViewModel;
+    });
+    expect(viewModel[0].name).toBe("I, Robot");
+  });
+  it("should sort descending on name as per option", async () => {
+    await booksPresenter.sortDecending((generatedViewModel) => {
+      viewModel = generatedViewModel;
+    });
+    expect(viewModel[0].name).toBe("Wind in the willows");
+  });
 });

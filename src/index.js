@@ -22,13 +22,44 @@ function App() {
     <>
       <h3>Books</h3>
 
-      {/* for power up exercise */}
-      {/* <button type="button">Public</button>
-      <button type="button">Private</button>
+      <button
+        type="button"
+        onClick={() => {
+          booksPresenter.setMode("public");
+        }}
+      >
+        Public
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          booksPresenter.setMode("private");
+        }}
+      >
+        Private
+      </button>
       <br />
-      <button type="button">Sort on Name - ASC</button>
-      <button type="button">Sort on Name - DESC</button>
-      <br /> */}
+      <button
+        type="button"
+        onClick={async () => {
+          await booksPresenter.sortAscending((viewModel) => {
+            copyViewModelToStateViewModel(viewModel);
+          });
+        }}
+      >
+        Sort on Name - ASC
+      </button>
+      <button
+        type="button"
+        onClick={async () => {
+          await booksPresenter.sortDecending((viewModel) => {
+            copyViewModelToStateViewModel(viewModel);
+          });
+        }}
+      >
+        Sort on Name - DESC
+      </button>
+      <br />
 
       <div>
         {stateViewModel.map((book, i) => {
